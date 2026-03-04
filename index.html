@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feliz Cumpleaños Mi Amor 💜</title>
+
+<style>
+body{
+    margin:0;
+    font-family:'Segoe UI', sans-serif;
+    overflow-x:hidden;
+    text-align:center;
+    color:white;
+    transition:background 1s;
+}
+
+/* Fondo dinámico */
+.background{
+    position:fixed;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    z-index:-1;
+}
+
+.floating{
+    position:absolute;
+    font-size:25px;
+    animation:float linear infinite;
+    opacity:0.7;
+}
+
+@keyframes float{
+    from{transform:translateY(100vh) rotate(0deg);}
+    to{transform:translateY(-10vh) rotate(360deg);}
+}
+
+/* Carta */
+.letter{
+    position:fixed;
+    top:-300px;
+    left:50%;
+    transform:translateX(-50%);
+    background:white;
+    color:black;
+    width:320px;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 0 25px rgba(255,0,255,0.7);
+    transition:1.5s ease;
+    cursor:pointer;
+}
+.showLetter{ top:120px; }
+
+.section{
+    display:none;
+    padding:40px;
+}
+
+button{
+    padding:10px 20px;
+    border:none;
+    border-radius:20px;
+    background:#ff00cc;
+    color:white;
+    cursor:pointer;
+    margin:15px;
+    transition:0.3s;
+}
+button:hover{ transform:scale(1.1); }
+
+/* Kuromi */
+.kuromi-img{
+    width:220px;
+    animation:floatKuromi 3s infinite ease-in-out;
+}
+@keyframes floatKuromi{
+    0%{transform:translateY(0);}
+    50%{transform:translateY(-15px);}
+    100%{transform:translateY(0);}
+}
+
+/* F1 */
+#lights{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin:20px;
+}
+.light{
+    width:25px;
+    height:25px;
+    background:#550000;
+    border-radius:50%;
+}
+.light.active{
+    background:red;
+    box-shadow:0 0 15px red;
+}
+#countdown{
+    font-size:40px;
+    margin:20px;
+    color:#ff0000;
+}
+#carContainer{
+    height:100px;
+    position:relative;
+    overflow:hidden;
+}
+.car{
+    font-size:60px;
+    position:relative;
+    left:-100%;
+}
+.drive{
+    animation:drive 4s linear forwards;
+}
+@keyframes drive{
+    from{left:-100%;}
+    to{left:100%;}
+}
+
+/* Pastel */
+.cake{
+    font-size:120px;
+    cursor:pointer;
+    animation:pulse 1.5s infinite;
+}
+@keyframes pulse{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.1);}
+    100%{transform:scale(1);}
+}
+
+/* Coraline */
+.doorContainer{
+    display:flex;
+    justify-content:center;
+    margin:40px;
+    perspective:1000px;
+}
+.door{
+    width:120px;
+    height:200px;
+    background:#2b1b47;
+    border:4px solid #000;
+    border-radius:5px;
+    cursor:pointer;
+    transition:transform 1.5s;
+    transform-origin:left;
+    box-shadow:0 0 20px #000;
+}
+.door.open{
+    transform:rotateY(-120deg);
+    box-shadow:0 0 60px #00ffff;
+}
+#magicMessage{
+    display:none;
+    margin-top:20px;
+    font-size:18px;
+}
+
+/* Final */
+#final{
+    display:none;
+    background:black;
+    padding:40px;
+    border-radius:20px;
+    margin:20px auto;
+    max-width:800px;
+    position:relative;
+}
+
+.finalImages{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    margin-bottom:30px;
+}
+
+.finalImages img{
+    width:150px;
+    border-radius:15px;
+    animation:floatFinal 5s infinite ease-in-out;
+}
+
+@keyframes floatFinal{
+    0%{transform:translateY(0);}
+    50%{transform:translateY(-15px);}
+    100%{transform:translateY(0);}
+}
+
+.big{
+    font-size:60px;
+    color:#ff00ff;
+    animation:bigPulse 1s infinite;
+}
+@keyframes bigPulse{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.2);}
+    100%{transform:scale(1);}
+}
+
+/* Corazones */
+.heart{
+    position:fixed;
+    font-size:25px;
+    animation:heartExplode 2s forwards;
+}
+@keyframes heartExplode{
+    0%{transform:translateY(0) scale(1); opacity:1;}
+    100%{transform:translateY(-200px) scale(2); opacity:0;}
+}
+
+/* Estrellas */
+.star{
+    position:fixed;
+    animation:twinkle 2s infinite alternate;
+}
+@keyframes twinkle{
+    from{opacity:0.3;}
+    to{opacity:1;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="background" id="bg"></div>
+
+<audio id="engineSound" src="https://www.soundjay.com/mechanical/sounds/car-engine-start-1.mp3"></audio>
+<audio id="magicSound" src="https://www.soundjay.com/misc/sounds/magic-chime-02.mp3"></audio>
+
+<div class="letter" id="letter" onclick="openLetter()">
+💌 Tienes una carta… haz click para abrirla
+</div>
+
+<div class="section" id="kuromiSection">
+<h1>💜 Feliz Cumpleaños Princesa 💜</h1>
+<img src="https://static.wikia.nocookie.net/doblaje/images/8/8d/Sanrio_Characters_Kuromi_Image016.png/revision/latest?cb=20240701183447&path-prefix=es" class="kuromi-img">
+<p>Hoy celebramos tus 20 años hermosa 😏</p>
+<button onclick="showF1()">Continuar 🏁</button>
+</div>
+
+<div class="section" id="f1Section">
+<h2>🏁 Gran Premio del Amor 🏁</h2>
+<div id="lights">
+<span class="light"></span>
+<span class="light"></span>
+<span class="light"></span>
+<span class="light"></span>
+<span class="light"></span>
+</div>
+<button onclick="startRace()">Comenzar Cuenta Regresiva</button>
+<div id="countdown"></div>
+<div id="carContainer">
+<div id="car" class="car">🏎</div>
+</div>
+<p id="raceText"></p>
+<button onclick="showCake()">Siguiente 🎂</button>
+</div>
+
+<div class="section" id="cakeSection">
+<h2>🎂 Sopla las velas 🎂</h2>
+<div class="cake" onclick="blowCandle()">🎂</div>
+<p id="cakeText"></p>
+<button onclick="showCoraline()">Descubre la puerta mágica 🚪</button>
+</div>
+
+<div class="section" id="coralineSection">
+<h2>🌌 Hay algo detrás de esta puerta 🌌</h2>
+<div class="doorContainer">
+<div class="door" onclick="openDoor()"></div>
+</div>
+<div id="magicMessage">
+✨ Amor mío… si existiera otro mundo como en Coraline,  
+solo lo cruzaría si tú estás conmigo.  
+Porque tú eres mi verdadera aventura 💜  
+<br><br>
+<button onclick="showFinal()">Abrir mi corazón 💌</button>
+</div>
+</div>
+
+<div id="final">
+<div class="finalImages">
+<img src="https://i.pinimg.com/736x/11/c3/68/11c36825714c1f640a0a29c1c67bfd2a.jpg">
+<img src="https://www.f1-fansite.com/wp-content/uploads/2024/02/240213_SF-Media31_42df08ea-d9ab-47bb-a5bd-4b740676a3d6.jpg">
+<img src="https://static.wikia.nocookie.net/doblaje/images/8/8d/Sanrio_Characters_Kuromi_Image016.png/revision/latest?cb=20240701183447&path-prefix=es">
+</div>
+
+<p>
+Amor mío, feliz cumpleaños mi princesa hermosa.  
+Ya son 20 años de la niña más hermosa del mundo.  
+Tal vez no sea el regalo más grande,  
+pero cada detalle aquí está hecho con todo mi amor.  
+Si pudiera correr como un Fórmula 1 lo haría solo para abrazarte más rápido.  
+Si pudiera crear un mundo mágico, sería uno donde solo existamos tú y yo.  
+Te amo muchísimo, más de lo que las palabras pueden explicar 💜
+</p>
+
+<div class="big">TE AMO 💜</div>
+</div>
+
+<script>
+function createFloating(symbols){
+    const bg=document.getElementById("bg");
+    bg.innerHTML="";
+    for(let i=0;i<25;i++){
+        let span=document.createElement("span");
+        span.classList.add("floating");
+        span.innerText=symbols[Math.floor(Math.random()*symbols.length)];
+        span.style.left=Math.random()*100+"%";
+        span.style.animationDuration=(5+Math.random()*10)+"s";
+        bg.appendChild(span);
+    }
+}
+
+window.onload=()=>{
+    createFloating(["💜","⭐","✨"]);
+    setTimeout(()=>{
+        document.getElementById("letter").classList.add("showLetter");
+    },1000);
+}
+
+function openLetter(){
+    document.getElementById("letter").style.display="none";
+    document.getElementById("kuromiSection").style.display="block";
+    document.body.style.background="#2b003b";
+    createFloating(["🖤","💜","✨"]);
+}
+
+function showF1(){
+    document.getElementById("kuromiSection").style.display="none";
+    document.getElementById("f1Section").style.display="block";
+    document.body.style.background="#000";
+    createFloating(["🏁","✨","❤️"]);
+}
+
+function startRace(){
+    let lights=document.querySelectorAll(".light");
+    let countdown=document.getElementById("countdown");
+    let car=document.getElementById("car");
+    let engine=document.getElementById("engineSound");
+    let i=0;
+
+    let interval=setInterval(()=>{
+        lights[i].classList.add("active");
+        i++;
+        if(i===5){
+            clearInterval(interval);
+            countdown.innerHTML="GOOOO ❤️🏁<br>¡A toda velocidad por tu corazón!";
+            car.classList.add("drive");
+            engine.play();
+            document.getElementById("raceText").innerText=
+            "Así comenzó nuestra historia… rápida, intensa y llena de emoción ❤️";
+        }
+    },800);
+}
+
+function showCake(){
+    document.getElementById("f1Section").style.display="none";
+    document.getElementById("cakeSection").style.display="block";
+    document.body.style.background="#4b006e";
+    createFloating(["🎉","💜","✨"]);
+}
+
+function blowCandle(){
+    document.getElementById("cakeText").innerText=
+    "Pide un deseo… yo siempre pediré que estés conmigo 💜";
+}
+
+function showCoraline(){
+    document.getElementById("cakeSection").style.display="none";
+    document.getElementById("coralineSection").style.display="block";
+    document.body.style.background="#001f3f";
+    createFloating(["🌙","✨","💙"]);
+}
+
+function openDoor(){
+    let door=document.querySelector(".door");
+    let magic=document.getElementById("magicSound");
+    door.classList.add("open");
+    magic.play();
+
+    for(let i=0;i<25;i++){
+        let star=document.createElement("div");
+        star.classList.add("star");
+        star.innerText="⭐";
+        star.style.left=Math.random()*100+"%";
+        star.style.top=Math.random()*100+"%";
+        document.body.appendChild(star);
+    }
+
+    setTimeout(()=>{
+        document.getElementById("magicMessage").style.display="block";
+    },1200);
+}
+
+function showFinal(){
+    document.getElementById("coralineSection").style.display="none";
+    document.getElementById("final").style.display="block";
+    document.body.style.background="#000";
+    createFloating(["💜","✨","🖤"]);
+
+    for(let i=0;i<40;i++){
+        let heart=document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerText="💜";
+        heart.style.left=Math.random()*100+"%";
+        heart.style.bottom="0";
+        document.body.appendChild(heart);
+        setTimeout(()=>{heart.remove();},2000);
+    }
+}
+</script>
+
+</body>
+</html>
